@@ -8,8 +8,8 @@ const main = async () => {
 	//env
 	dotenv.config({ path: path.join(__dirname, ".env") });
 	dotenv.config({ path: path.join(__dirname, ".env.default") });
-	if (!process.env.prerender_token)
-		throw new Error("Token of prerender is needed. Register first.");
+	// if (!process.env.prerender_token)
+	// 	throw new Error("Token of prerender is needed. Register first.");
 
 	//routes
 	var routes = {
@@ -28,7 +28,7 @@ const main = async () => {
 	app.use(cors());
 	for (var route in routes) app.get(route, routes[route]);
 
-	app.use(prerender.set("prerenderToken", process.env.prerender_token));
+	// app.use(prerender.set("prerenderToken", process.env.prerender_token));
 	app.use(express.static(path.join(__dirname, "public")));
 	app.get("/*", (req, res) =>
 		res.sendFile(path.join(__dirname, "public", "index.html"))
