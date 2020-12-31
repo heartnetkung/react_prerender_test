@@ -20,6 +20,7 @@ const main = async () => {
 				() => res.json({ increment: parseInt(req.query.number) + 1 }),
 				100
 			),
+		"/health": () => res.send("healthy"),
 	};
 
 	//express
