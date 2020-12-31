@@ -8,7 +8,7 @@ import {
   withRouter,
 } from "react-router-dom";
 
-const BACKEND_URL = "https://app.jobfinfin.com";
+const BACKEND_URL = "https://react-prerender-test.netlify.app/data";
 
 function App() {
   return (
@@ -44,9 +44,12 @@ class Home extends React.Component {
     this.state = {};
   }
   componentDidMount() {
-    fetch(BACKEND_URL + "/data")
+    fetch(BACKEND_URL + "/data.json")
       .then((res) => res.json())
-      .then((data) => this.setState(data));
+      .then((data) => {
+        this.setState(data);
+        window.prerenderReady = true;
+      });
   }
   render() {
     return <h2>Home {this.state.hello}</h2>;
@@ -60,15 +63,18 @@ class Users extends React.Component {
   }
   componentDidMount() {
     var id = this.props.match.params.id || 1;
-    fetch(BACKEND_URL + "/increment?number=" + id)
+    fetch(BACKEND_URL + "/user_" + id + ".json")
       .then((res) => res.json())
-      .then((data) => this.setState(data));
+      .then((data) => {
+        this.setState(data);
+        window.prerenderReady = true;
+      });
   }
   render() {
     return (
       <h2>
-        Users: {this.props.match.params.id || 1}
-        <br/>
+        User: {this.props.match.params.id || 1}
+        <br />
         Increment: {this.state.increment}
       </h2>
     );
